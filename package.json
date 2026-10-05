@@ -1,0 +1,21 @@
+{
+  "name": "zero-anxiety-tomato",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "零焦虑番茄专注钟：无广告、无惩罚、极简学生友好的本地专注计时应用",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/gen-icons.mjs dist/icons",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "tailwindcss": "^4.1.4",
+    "vite": "^6.3.5"
+  }
+}

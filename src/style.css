@@ -1,0 +1,245 @@
+/* ========== Tailwind CSS v4 入口 ========== */
+@import "tailwindcss";
+
+/* ========== 设计规范：低饱和护眼配色（白/浅灰底 + 低饱和绿） ========== */
+@theme {
+  /* 主色：鼠尾草绿（护眼、平静，无刺激感） */
+  --color-sage-50: #f3f7f4;
+  --color-sage-100: #e6efe8;
+  --color-sage-200: #cde2d2;
+  --color-sage-300: #abcbb7;
+  --color-sage-400: #83b294;
+  --color-sage-500: #639a78;
+  --color-sage-600: #4f7f61;
+  --color-sage-700: #416750;
+
+  /* 底色：暖浅灰/米白 */
+  --color-sand-50: #faf9f6;
+  --color-sand-100: #f3f2ed;
+  --color-sand-200: #e9e7df;
+
+  /* 文字：低对比度灰，柔和护眼 */
+  --color-ink-300: #b4bab5;
+  --color-ink-400: #939b94;
+  --color-ink-600: #5a635c;
+  --color-ink-900: #323a35;
+
+  /* 卡片表面色（浅色=白，深色模式自动变深） */
+  --color-surface: #ffffff;
+}
+
+/* ========== 深色护眼模式：覆盖主题变量（所有组件自动适配） ========== */
+.dark {
+  /* 底色与卡片：低亮度暖灰绿，不刺眼 */
+  --color-surface: #242925;
+  --color-sand-50: #191d1a;
+  --color-sand-100: #212521;
+  --color-sand-200: #2e352e;
+
+  /* 主色绿：整体提亮一档，保证深底上的可读性 */
+  --color-sage-50: #1c2a21;
+  --color-sage-100: #223326;
+  --color-sage-200: #29402d;
+  --color-sage-300: #365637;
+  --color-sage-400: #6aa584;
+  --color-sage-500: #79b391;
+  --color-sage-600: #97c7aa;
+  --color-sage-700: #b3d8c0;
+
+  /* 文字：改为浅色系 */
+  --color-ink-300: #59625a;
+  --color-ink-400: #8a938b;
+  --color-ink-600: #c2cac3;
+  --color-ink-900: #e7ebe7;
+}
+
+/* 热力图色阶（浅色/深色两套，深色下 0 = 深底、5 = 亮绿） */
+:root {
+  --hm-0: #efede6;
+  --hm-1: #dce8de;
+  --hm-2: #c2dcc8;
+  --hm-3: #9bc7a4;
+  --hm-4: #7ab58d;
+  --hm-5: #5e9f75;
+}
+.dark {
+  --hm-0: #262c27;
+  --hm-1: #2e4233;
+  --hm-2: #39553e;
+  --hm-3: #49714f;
+  --hm-4: #5f8f6c;
+  --hm-5: #83b294;
+}
+
+/* 弹层遮罩（深色模式下用纯黑遮罩，避免浅灰遮罩发雾） */
+.modal-overlay {
+  background: rgba(50, 58, 53, 0.3);
+}
+.dark .modal-overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* 弹窗卡片阴影在深色下改为无彩阴影 */
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* ========== 全局基础样式 ========== */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+/* 原生控件（下拉框/输入框/滚动条）跟随主题配色 */
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  background: var(--color-sand-50);
+  color: var(--color-ink-900);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* 深浅色切换时柔和过渡 */
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* 计时数字使用等宽数字，避免跳动 */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 隐藏横向滚动条（科目选择等） */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* 去掉数字输入框的上下箭头（自定义时长输入） */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ========== 通用组件样式 ========== */
+/* 主按钮：大圆角、低饱和绿、轻阴影 */
+.btn-primary {
+  padding: 14px 44px;
+  border-radius: 9999px;
+  background: var(--color-sage-500);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 18px rgba(99, 154, 120, 0.28);
+  transition: filter 0.15s, transform 0.15s;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+  filter: brightness(0.96);
+}
+/* 次级按钮 */
+.btn-ghost {
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: var(--color-sand-100);
+  color: var(--color-ink-600);
+  font-size: 14px;
+  transition: filter 0.15s;
+}
+.btn-ghost:active {
+  filter: brightness(0.95);
+}
+/* 危险操作确认态（深色下用半透明红，避免浅红块刺眼） */
+.danger-soft {
+  background: #fef2f2;
+  color: #f87171;
+}
+.dark .danger-soft {
+  background: rgba(248, 113, 113, 0.14);
+  color: #fca5a5;
+}
+/* 选择胶囊（时长预设、科目） */
+.chip {
+  padding: 7px 14px;
+  border-radius: 9999px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-sand-200);
+  color: var(--color-ink-600);
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.chip:active {
+  transform: scale(0.96);
+}
+.chip-on {
+  background: var(--color-sage-100);
+  border-color: var(--color-sage-300);
+  color: var(--color-sage-700);
+  font-weight: 500;
+}
+
+/* ========== 过渡动画 ========== */
+/* 轻提示（Toast） */
+.toast-enter-active,
+.toast-leave-active {
+  transition: opacity 0.25s, transform 0.25s;
+}
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* 花园元素「生长」入场动画：破土而出，永不枯萎 */
+@keyframes sprout {
+  0% {
+    transform: scale(0) rotate(var(--rot, 0deg));
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15) rotate(var(--rot, 0deg));
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(var(--rot, 0deg));
+    opacity: 1;
+  }
+}
+.garden-el {
+  animation: sprout 0.55s ease-out both;
+  /* --i 由元素索引提供，实现错峰生长 */
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* AI 复盘正文的极简 Markdown 样式 */
+.ai-md p {
+  margin: 5px 0;
+  line-height: 1.75;
+}
+.ai-md p:first-child {
+  margin-top: 0;
+}
+.ai-md .md-h {
+  font-weight: 600;
+  color: var(--color-ink-900);
+}
+.ai-md .md-li {
+  padding-left: 12px;
+  position: relative;
+}
+.ai-md .md-li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--color-sage-500);
+}
+.ai-md strong {
+  font-weight: 600;
+  color: var(--color-sage-700);
+}
